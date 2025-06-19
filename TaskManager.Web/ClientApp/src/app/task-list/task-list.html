@@ -1,0 +1,48 @@
+<p>task-list works!</p>
+<div class="task-manager">
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Add New Task Form -->
+  <div class="task-form">
+    <h3>Add New Task</h3>
+    <input [(ngModel)]="newTask.title" placeholder="Title" class="form-input">
+    <textarea [(ngModel)]="newTask.description" placeholder="Description"></textarea>
+    <!-- <select [(ngModel)]="newTask.priority">
+    <option *ngFor="let priority of priorityOptions" [value]="priority">
+      {{ priority }}
+    </option>
+  </select>-->
+    <input type="date" [(ngModel)]="newTask.dueDate">
+    <button (click)="addTask()">Add Task</button>
+  </div>
+
+  <!-- Task List -->
+    <div class="task-list">
+      <h3>Your Tasks</h3>
+      <div *ngIf="isLoading">Loading tasks...</div>
+
+      <div *ngFor="let task of tasks" class="task-item" [class.completed]="task.isCompleted">
+        <div class="task-header">
+          <h4>{{ task.title }}</h4>
+          <span class="priority-badge" [class]="'priority-' + task.priority.toLowerCase()">
+            {{ task.priority }}
+          </span>
+        </div>
+
+        <p>{{ task.description }}</p>
+        <small>Due: {{ task.dueDate | date }}</small>
+
+        <div class="task-actions">
+          <!-- jQuery will bind to this checkbox -->
+          <!-- <input type="checkbox"
+  [checked]="task.isCompleted"
+  class="task-toggle"
+  data-task-id="{{ task.id }}">-->
+          <!--<button (click)="deleteTask(task.id)">Delete</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
